@@ -51,12 +51,19 @@ class BookList extends Component {
   }
 
   handleDelete(index) {
-    this.setState(prevState => ({
-      ...prevState,
-      books: prevState.books
-        .slice(0, index)
-        .concat(prevState.books.slice(index + 1))
-    }));
+    // alternate method
+
+    // this.setState(prevState => ({
+    //   ...prevState,
+    //   books: prevState.books
+    //     .slice(0, index)
+    //     .concat(prevState.books.slice(index + 1))
+    // }));
+
+    this.setState(prevState => {
+      prevState.books.splice(index, 1);
+      return prevState;
+    });
   }
 
   render() {
@@ -77,9 +84,7 @@ class BookList extends Component {
           {books.map((book, idx) => (
             <>
               <li key={idx}>{book.title}</li>
-              <button key={idx} onClick={() => this.handleDelete(idx)}>
-                X
-              </button>
+              <button onClick={() => this.handleDelete(idx)}>X</button>
             </>
           ))}
         </ul>
